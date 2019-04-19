@@ -1,4 +1,4 @@
-package com.example.mvvmwithrx
+package com.example.mvvmwithrx.model
 
 import com.google.gson.annotations.SerializedName
 

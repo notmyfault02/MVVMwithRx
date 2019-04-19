@@ -1,6 +1,6 @@
 package com.example.mvvmwithrx.connect
 
-import com.example.mvvmwithrx.HistoricalSite
+import com.example.mvvmwithrx.model.HistoricalSite
 import retrofit2.Call
 import retrofit2.http.GET
 

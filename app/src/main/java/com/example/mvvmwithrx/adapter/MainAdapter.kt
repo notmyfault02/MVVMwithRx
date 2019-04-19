@@ -1,4 +1,4 @@
-package com.example.mvvmwithrx
+package com.example.mvvmwithrx.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.example.mvvmwithrx.R
+import com.example.mvvmwithrx.model.HistoricalSite
 import kotlinx.android.synthetic.main.item_main.view.*
 
 class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MainAdapter.MainViewHolder {
-        val view = LayoutInflater.from(p0.context).inflate(R.layout.item_main, p0, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
+
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_main, parent, false)
         return MainViewHolder(view)
     }
 
@@ -36,4 +39,5 @@ class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<Ma
             }
         }
     }
+
 }
