@@ -6,8 +6,9 @@ import android.databinding.BindingAdapter
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.example.mvvmwithrx.model.HistoricalSite
 
-class ItemViewModel(val constract: Constract): BaseObservable() {
+class ItemViewModel(val historicalSite: HistoricalSite, val constract: Constract): BaseObservable() {
 
     val historicalSiteName = MutableLiveData<String>()
     val historicalSiteLocation = MutableLiveData<String>()

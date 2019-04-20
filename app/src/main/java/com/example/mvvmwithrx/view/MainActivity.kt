@@ -19,8 +19,10 @@ import org.jetbrains.anko.startActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Constract {
+class MainActivity : AppCompatActivity(), Constract, Observer {
 
     lateinit var mArrayList: ArrayList<HistoricalSite>
     lateinit var mRecyclerView: RecyclerView
@@ -44,6 +46,10 @@ class MainActivity : AppCompatActivity(), Constract {
         mArrayList = ArrayList()
 
         setAdapterData()
+    }
+
+    override fun update(o: Observable?, arg: Any?) {
+        
     }
 
     fun setAdapterData(): ArrayList<HistoricalSite> {
