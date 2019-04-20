@@ -3,7 +3,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="vm" type="com.example.mvvmwithrx.viewModel.MainViewModel"/>
+        <variable
+                name="vm"
+                type="com.example.mvvmwithrx.viewModel.MainViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

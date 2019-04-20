@@ -1,11 +1,11 @@
 package com.example.mvvmwithrx.connect
 
 import com.example.mvvmwithrx.model.HistoricalSite
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 
 interface API {
 
     @GET("main/bla")
-    fun getPhoto(): Call<ArrayList<HistoricalSite>>
+    fun getPhoto(): Single<ArrayList<HistoricalSite>>
 }

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.mvvmwithrx.model.HistoricalSite
 
-class ItemViewModel(val historicalSite: HistoricalSite, val constract: Constract): BaseObservable() {
+class ItemViewModel(val historicalSite: HistoricalSite): BaseObservable() {
 
     val historicalSiteName = MutableLiveData<String>()
     val historicalSiteLocation = MutableLiveData<String>()
@@ -19,6 +19,6 @@ class ItemViewModel(val historicalSite: HistoricalSite, val constract: Constract
     }
 
     fun onItemClick(v: View) {
-        constract.goDetail()
+
     }
 }

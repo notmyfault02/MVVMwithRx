@@ -3,7 +3,6 @@ package com.example.mvvmwithrx.view
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -13,21 +12,25 @@ import com.example.mvvmwithrx.adapter.MainAdapter
 import com.example.mvvmwithrx.connect.Connecter
 import com.example.mvvmwithrx.databinding.ActivityMainBinding
 import com.example.mvvmwithrx.model.HistoricalSite
-import com.example.mvvmwithrx.viewModel.Constract
+import com.example.mvvmwithrx.util.BaseActivity
 import com.example.mvvmwithrx.viewModel.MainViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.startActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Constract, Observer {
+class MainActivity : BaseActivity<ActivityMainBinding>(), Observer {
 
     lateinit var mArrayList: ArrayList<HistoricalSite>
     lateinit var mRecyclerView: RecyclerView
     lateinit var mAdapter: MainAdapter
     lateinit var mLayoutManager: LinearLayoutManager
+
+    override val layoutId: Int
+        get() = R.layout.activity_main
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,25 +57,42 @@ class MainActivity : AppCompatActivity(), Constract, Observer {
 
     fun setAdapterData(): ArrayList<HistoricalSite> {
         var data = ArrayList<HistoricalSite>()
-        Connecter.api.getPhoto().enqueue(object: Callback<ArrayList<HistoricalSite>> {
-            override fun onResponse(call: Call<ArrayList<HistoricalSite>>, response: Response<ArrayList<HistoricalSite>>) {
-                mArrayList = response!!.body()!!
+//        Connecter.api.getPhoto().enqueue(object: Callback<ArrayList<HistoricalSite>> {
+//            override fun onResponse(call: Call<ArrayList<HistoricalSite>>, response: Response<ArrayList<HistoricalSite>>) {
+//                mArrayList = response!!.body()!!
+//                mAdapter = MainAdapter(mArrayList)
+//                mRecyclerView.adapter = mAdapter
+//
+//                mAdapter.notifyDataSetChanged()
+//                Log.d("연동", "성공")
+//            }
+//
+//            override fun onFailure(call: Call<ArrayList<HistoricalSite>>, t: Throwable) {
+//                Log.d("연동", "실패")
+//                Toast.makeText(this@MainActivity, "에러", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//        return data
+
+        Connecter.api.getPhoto()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe( {
+                mArrayList = it
                 mAdapter = MainAdapter(mArrayList)
                 mRecyclerView.adapter = mAdapter
 
                 mAdapter.notifyDataSetChanged()
                 Log.d("연동", "성공")
-            }
-
-            override fun onFailure(call: Call<ArrayList<HistoricalSite>>, t: Throwable) {
+            }, {
                 Log.d("연동", "실패")
                 Toast.makeText(this@MainActivity, "에러", Toast.LENGTH_SHORT).show()
-            }
-        })
+            })
+
         return data
     }
 
-    override fun goDetail() {
+    fun goDetail() {
         startActivity<DetailActivity>()
     }
 }
