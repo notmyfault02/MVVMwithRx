@@ -17,10 +17,8 @@ import com.example.mvvmwithrx.viewModel.MainViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.startActivity
-import java.util.*
-import kotlin.collections.ArrayList
 
-class MainActivity : BaseActivity<ActivityMainBinding>(), Observer {
+class MainActivity : BaseActivity<ActivityMainBinding>(){
 
     lateinit var mArrayList: ArrayList<HistoricalSite>
     lateinit var mRecyclerView: RecyclerView
@@ -29,7 +27,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), Observer {
 
     override val layoutId: Int
         get() = R.layout.activity_main
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +46,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(), Observer {
         mArrayList = ArrayList()
 
         setAdapterData()
-    }
-
-    override fun update(o: Observable?, arg: Any?) {
-        
     }
 
     fun setAdapterData(): ArrayList<HistoricalSite> {

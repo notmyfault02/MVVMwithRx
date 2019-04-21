@@ -34,7 +34,7 @@ class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<Ma
 
                 Glide.with(context)
                     .load(model.imagePath)
-                    .fitCenter()
+                    .centerCrop()
                     .into(imageHistory)
             }
         }

@@ -3,6 +3,7 @@ package com.example.mvvmwithrx.connect
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Connecter {
@@ -14,7 +15,8 @@ object Connecter {
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
         retrofit = Retrofit
             .Builder()
-            .baseUrl("https://52.199.207.14/")
+            .baseUrl("http://52.199.207.14/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
