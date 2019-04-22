@@ -1,24 +1,20 @@
 package com.example.mvvmwithrx.view
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.widget.Toast
 import com.example.mvvmwithrx.R
 import com.example.mvvmwithrx.adapter.MainAdapter
-import com.example.mvvmwithrx.connect.Connecter
 import com.example.mvvmwithrx.databinding.ActivityMainBinding
 import com.example.mvvmwithrx.model.HistoricalSite
 import com.example.mvvmwithrx.util.BaseActivity
 import com.example.mvvmwithrx.viewModel.MainViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
-class MainActivity : BaseActivity<ActivityMainBinding>(){
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(){
 
     lateinit var mArrayList: ArrayList<HistoricalSite>
     lateinit var mRecyclerView: RecyclerView
@@ -28,13 +24,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
     override val layoutId: Int
         get() = R.layout.activity_main
 
+    override val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
-        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this,
-            R.layout.activity_main
-        )
         val vm = ViewModelProviders.of(this) [MainViewModel::class.java]
         binding.setLifecycleOwner(this)
         binding.vm = vm
@@ -45,44 +39,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(){
 
         mArrayList = ArrayList()
 
-        setAdapterData()
+        viewModel.setAdapterData()
     }
 
-    fun setAdapterData(): ArrayList<HistoricalSite> {
-        var data = ArrayList<HistoricalSite>()
-//        Connecter.api.getPhoto().enqueue(object: Callback<ArrayList<HistoricalSite>> {
-//            override fun onResponse(call: Call<ArrayList<HistoricalSite>>, response: Response<ArrayList<HistoricalSite>>) {
-//                mArrayList = response!!.body()!!
-//                mAdapter = MainAdapter(mArrayList)
-//                mRecyclerView.adapter = mAdapter
-//
-//                mAdapter.notifyDataSetChanged()
-//                Log.d("연동", "성공")
-//            }
-//
-//            override fun onFailure(call: Call<ArrayList<HistoricalSite>>, t: Throwable) {
-//                Log.d("연동", "실패")
-//                Toast.makeText(this@MainActivity, "에러", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//        return data
+    override fun initStartView() {
+        mainRv.run {
+            adapter = mAdapter
+            layoutManager = mLayoutManager
+        }
+    }
 
-        Connecter.api.getPhoto()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe( {
-                mArrayList = it
-                mAdapter = MainAdapter(mArrayList)
-                mRecyclerView.adapter = mAdapter
+    override fun initDataBinding() {
+        viewModel.historicalSite.observe(this, Observer {
+            it!!.documents.forEach {
+                mAdapter.addImageItem(it.imagePath, it.location, it.name)
+            }
+            mAdapter.notifyDataSetChanged()
+        })
+    }
 
-                mAdapter.notifyDataSetChanged()
-                Log.d("연동", "성공")
-            }, {
-                Log.d("연동", "실패")
-                Toast.makeText(this@MainActivity, "에러", Toast.LENGTH_SHORT).show()
-            })
-
-        return data
+    override fun initAfterBinding() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun goDetail() {

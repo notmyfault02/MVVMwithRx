@@ -10,7 +10,11 @@ import com.example.mvvmwithrx.R
 import com.example.mvvmwithrx.model.HistoricalSite
 import kotlinx.android.synthetic.main.item_main.view.*
 
-class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter: RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+
+    data class ImageItem(var imagePath:String, val location:String, val name: String)
+
+    val items: List<HistoricalSite.Document> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
 
@@ -18,16 +22,20 @@ class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<Ma
         return MainViewHolder(view)
     }
 
-    override fun getItemCount(): Int = model.size
+    val imageItemList = ArrayList<ImageItem>()
+
+    override fun getItemCount(): Int = imageItemList.size
 
 
-    override fun onBindViewHolder(p0: MainViewHolder, p1: Int) = p0.bind(model[p1])
+    override fun onBindViewHolder(p0: MainViewHolder, p1: Int) {
+        (p0 as? MainViewHolder)?.bind(imageItemList[p1])
+    }
 
     inner class MainViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val location = itemView.findViewById<TextView>(R.id.tvHistoryLocation)
         val name = itemView.findViewById<TextView>(R.id.tvHistoryName)
 
-        fun bind(model: HistoricalSite) {
+        fun bind(model: ImageItem) {
             with(itemView) {
                 location.text = model.location
                 name.text = model.name
@@ -38,6 +46,10 @@ class MainAdapter(val model: ArrayList<HistoricalSite>): RecyclerView.Adapter<Ma
                     .into(imageHistory)
             }
         }
+    }
+
+    fun addImageItem(imagePath: String, location: String, name: String) {
+        imageItemList.add(ImageItem(imagePath, location, name))
     }
 
 }
