@@ -1,5 +1,5 @@
 package com.example.mvvmwithrx.viewModel
 
-class DetailViewModel() {
+class DetailViewModel {
 
 }

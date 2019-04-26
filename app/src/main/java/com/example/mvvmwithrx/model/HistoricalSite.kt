@@ -8,5 +8,7 @@ data class HistoricalSite(
     @SerializedName ("historicalSiteLocation")
     val location: String,
     @SerializedName ("historicalSiteName")
-    val name: String
+    val name: String,
+    @SerializedName("historicalSiteCode")
+    val code: String
 )

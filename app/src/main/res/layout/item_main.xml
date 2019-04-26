@@ -3,10 +3,13 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="historicalSite" type="com.example.mvvmwithrx.model.HistoricalSite"/>
+        <variable name="vm" type="com.example.mvvmwithrx.viewModel.MainViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:clickable="true"
+    >
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -8,4 +8,5 @@ interface API {
 
     @GET("main/bla")
     fun getPhoto(): Single<ArrayList<HistoricalSite>>
+
 }

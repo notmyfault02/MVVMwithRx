@@ -23,11 +23,9 @@ class MainViewModel {
                     items.add(i)
                 }
             }, {
-               Log.d("에러", "음오우")
+               Log.d("에러", "설마")
             })
-
-
-
         return data
     }
+
 }

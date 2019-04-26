@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.example.mvvmwithrx.R
 import com.example.mvvmwithrx.databinding.ActivityMainBinding
+import com.example.mvvmwithrx.util.Constract
 import com.example.mvvmwithrx.viewModel.MainViewModel
+import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Constract {
 
-    val viewModel = MainViewModel()
+    private val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,4 +21,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.setAdapterData()
     }
 
+    override fun goDetail() {
+        startActivity<DetailActivity>()
+    }
 }
