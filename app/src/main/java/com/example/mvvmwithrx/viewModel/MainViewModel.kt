@@ -4,10 +4,11 @@ import android.databinding.ObservableArrayList
 import android.util.Log
 import com.example.mvvmwithrx.connect.Connecter
 import com.example.mvvmwithrx.model.HistoricalSite
+import com.example.mvvmwithrx.util.Constract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel {
+class MainViewModel(val constract: Constract) {
 
     val items = ObservableArrayList<HistoricalSite>()
 
@@ -27,5 +28,11 @@ class MainViewModel {
             })
         return data
     }
+
+    fun goDetail() {
+        Log.d("고", "디테일")
+        constract.intentToDetail()
+    }
+
 
 }

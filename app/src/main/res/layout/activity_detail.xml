@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="vm" type="com.example.mvvmwithrx.viewModel.DetailViewModel"/>
+        <variable name="historicalSite" type="com.example.mvvmwithrx.model.HistoricalSite"/>
     </data>
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -11,7 +12,7 @@
 
         <TextView
                 android:id="@+id/tvHistory"
-                android:text="@={historicalSite.name}"
+                android:text="@{historicalSite.name}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintBottom_toBottomOf="parent"

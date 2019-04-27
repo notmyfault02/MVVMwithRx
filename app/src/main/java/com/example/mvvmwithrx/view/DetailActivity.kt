@@ -16,5 +16,4 @@ class DetailActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail)
         binding.vm = viewModel
     }
-
 }

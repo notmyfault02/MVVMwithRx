@@ -11,7 +11,7 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity(), Constract {
 
-    private val viewModel = MainViewModel()
+    private val viewModel = MainViewModel(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,5 @@ class MainActivity : AppCompatActivity(), Constract {
         viewModel.setAdapterData()
     }
 
-    override fun goDetail() {
-        startActivity<DetailActivity>()
-    }
+    override fun intentToDetail() = startActivity<DetailActivity>()
 }
