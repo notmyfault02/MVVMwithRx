@@ -1,16 +1,20 @@
 package com.example.mvvmwithrx.viewModel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableArrayList
 import android.util.Log
 import com.example.mvvmwithrx.connect.Connecter
 import com.example.mvvmwithrx.model.HistoricalSite
-import com.example.mvvmwithrx.util.Constract
+import com.example.mvvmwithrx.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(val constract: Constract) {
+class MainViewModel(val app: Application): AndroidViewModel(app) {
 
     val items = ObservableArrayList<HistoricalSite>()
+
+    val doShow = SingleLiveEvent<Any>()
 
     fun setAdapterData(): ArrayList<HistoricalSite> {
         var data = ArrayList<HistoricalSite>()
@@ -29,10 +33,6 @@ class MainViewModel(val constract: Constract) {
         return data
     }
 
-    fun goDetail() {
-        Log.d("고", "디테일")
-        constract.intentToDetail()
-    }
-
+    fun goDetail() = doShow.call()
 
 }
