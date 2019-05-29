@@ -1,34 +1,57 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View"/>
-        <variable name="historicalSite" type="com.example.mvvmwithrx.model.HistoricalSite"/>
-        <variable name="vm" type="com.example.mvvmwithrx.viewModel.MainViewModel"/>
+
+        <variable
+                name="historicalSite"
+                type="com.example.mvvmwithrx.model.HistoricalSite"/>
+
+        <variable
+                name="vm"
+                type="com.example.mvvmwithrx.viewModel.MainViewModel"/>
+
+        <variable
+                name="index"
+                type="Integer"/>
     </data>
+
     <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:onClick="@{() -> vm.goDetail()}"
-            android:clickable="true">
+            android:layout_width="137dp"
+            android:layout_height="137dp"
+            android:onClick="@{() -> vm.goDetail(index)}">
+
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/imageHistory" app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="8dp"
-                app:image="@{historicalSite.imagePath}"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/imageHistory"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="0dp"
+                app:image="@{historicalSite.historicalSiteImagePath}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"/>
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvHistoryName"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp" android:textColor="#FFFFFF"
-                android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
-                android:text="@{historicalSite.name}"/>
+                android:layout_marginStart="32dp"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="32dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{historicalSite.historicalSiteName}"/>
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,8 +59,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="#FFFFFF"
                 android:layout_marginStart="32dp"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/tvHistoryName"
-                android:text="@{historicalSite.location}"/>
+                android:text="@{historicalSite.historicalSiteLocation}"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

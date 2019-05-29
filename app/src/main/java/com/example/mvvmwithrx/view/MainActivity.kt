@@ -4,9 +4,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.example.mvvmwithrx.R
+import com.example.mvvmwithrx.adapter.MainAdapter
 import com.example.mvvmwithrx.databinding.ActivityMainBinding
 import com.example.mvvmwithrx.util.DataBindingActivity
 import com.example.mvvmwithrx.viewModel.MainViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 
 class MainActivity : DataBindingActivity<ActivityMainBinding>(){
@@ -22,9 +24,9 @@ class MainActivity : DataBindingActivity<ActivityMainBinding>(){
         super.onCreate(savedInstanceState)
 
         binding.vm = viewModel
+        mainRv.adapter = MainAdapter(viewModel)
         viewModel.setAdapterData()
-        viewModel.doShow.observe(this, Observer { startActivity<DetailActivity>() })
-
+        viewModel.doShow.observe(this, Observer { startActivity<DetailActivity>("id" to viewModel.id.value) })
     }
 
 
